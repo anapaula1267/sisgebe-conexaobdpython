@@ -63,9 +63,71 @@ CREATE TABLE Diretor(
 --Tabela Supervisor
 CREATE TABLE Supervisor(
     id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL
+    senha VARCHAR(255) NOT NULL
+    satus ENUM('Ativo', 'inativo') DEFAULT 'ativo'
+);
+
+--Tabela Emprestimo
+CREATE TABLE Emprestimo(
+    id INT PRIMARY KEY AUTO_INCREMENT,
     aluno_id INT,
-    Livro_id INT
+    livro_id INT,
     data_emprestimo DATE NOT NULL,
     data_devolucao_prevista DATE,
     data_devolucao_real DATE,
+    multa DECIMAL(6,2) DEFAULT 0.00,
+    FOREIGN KEY (aluno_id) REFERENCES Aluno(id),
+    FOREIGN KEY (livro_id) REFERENCES livro(id)
+);
+
+--Tabela Reserva
+CREATE TABLE Reserva(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    aluno_id INT,
+    livro_id INT,
+    data_reserva DATE,
+    satus ENUM('ativa', 'expirada', 'cancelada')
+    FOREIGN KEY (aluno_id) REFERENCES Aluno(id),
+    FOREIGN KEY (livro_id) REFERENCES livro(id)
+);
+
+--Tabela HistoricoLeitura
+CREATE TABLE HistoricoLeitura(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    aluno_id INT,
+    livro_id INT,
+    data_inicio DATE,
+    data_fim DATe,
+    FOREIGN KEY (aluno_id) REFERENCES Aluno(id),
+    FOREIGN KEY (livro_id) REFERENCES Livro(id)
+);
+
+--Tabela Sugestao
+CREATE TABLE Sugestao(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    titulo VARCHAR(150),
+    autor VARCHAR(100),
+    categoria VARCHAR(50),
+    justificativa TEXT,
+    data_sugestao DATE,
+    alino_id INT,
+    professor_id INT,
+    FOREIGN KEY (aluno_id) REFERENCES Aluno(id),
+    FOREIGN KEY (professor_id) REFERENCES Professor(id)
+);
+
+--Tabela Relatorio
+CREATE TABLE Relatorio(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    tipo Enum ('mensal','turma,' 'aluno', 'livro'),
+    periodo_inicio DATE,
+    periodo_fim DATE,
+    gerado_por_bibliotecario INT,
+    gerado_por_diretor INT,
+    gerado_por_surpervisor INT,
+    FOREIGN KEY (gerado_por_bibliotecario) REFERENCES BIbliotecario(id),
+    FOREIGN KEY (gerado_por_diretor) REFERENCES Diretor(id),
+    FOREIGN KEY (gerado_por_surpervisor) REFERENCES Supervisor(id)
 );
