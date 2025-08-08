@@ -1,5 +1,5 @@
 fro db_config import conectar
- cria
+
 def criar_categoria(nome,descricao):
     conn = conectar()
     cursor = conn.cursor()
@@ -25,4 +25,15 @@ def atualizar_categoria(id_categoria, novo_nome, nova_descricao):
     conn.close()
     print("categoria atualizada")
 
-    def deletar_categoria(id_categoria):
+def deletar_categoria(id_categoria, novo_nome, nova_descricao):
+    try:
+        conn = conectar()
+        cursor = conn.cursor()
+        cursor.execute("UPDATE Categoria SET nome=%s, descricao=%s WHERE id=%s",
+                        (novo_nome, nova_descricao, id))
+        conn.commit()
+        if cursor.rowcount == 0:
+            return{"status": "aviso", "mensagem":"Nenhuma categoria encontrada para atualizar."}
+        return{"status": "sucesso", "mensagem":"Categoria atualizada!" }
+    except Exception as e:
+        return{"status":}
