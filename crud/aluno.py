@@ -19,8 +19,11 @@ def criar_aluno(nome, email, senha, serie, status='ativo'):
     except Exception as e:
         return{"status":"erro", "mensagem": str(e)}
     finally:
-        try: conn.close()
-        except: pass
+        if conn is not None:
+            try:
+                conn.close()
+            except Exception as e:
+                print(f"Erro ao fechar conexão:{e}")
 
 def Listar_alunos():
     try:
@@ -31,8 +34,11 @@ def Listar_alunos():
     except Exception as e:
         return{"status":"erro", "mensagem": str(e)}
     finally:
-        try: conn.close()
-        except: pass
+        if conn is not None:
+            try:
+                conn.close()
+            except Exception as e:
+                print(f"Erro ao fechar conexão:{e}")
 
 def obter_aluno(id_livro):
     try:
@@ -46,8 +52,11 @@ def obter_aluno(id_livro):
     except Exception as e:
         return{"status":"erro", "mensagem": str(e)} 
     finally:
-        try: conn.close()
-        except: pass
+        if conn is not None:
+            try:
+                conn.close()
+            except Exception as e:
+                print(f"Erro ao fechar conexão:{e}")
 
 def atualizar_aluno(id_aluno, nome=None, email=None, senha=None, serie=None, status=None):
     try:
@@ -77,8 +86,11 @@ def atualizar_aluno(id_aluno, nome=None, email=None, senha=None, serie=None, sta
     except Exception as e:
             return{"status":"erro", "mensagem": str(e)}
     finally: 
-        try: conn.close()
-        except: pass
+        if conn is not None:
+            try:
+                conn.close()
+            except Exception as e:
+                print(f"Erro ao fechar conexão:{e}")
 
 def deletar_aluno(id_aluno):
     try:
@@ -92,7 +104,10 @@ def deletar_aluno(id_aluno):
     except Exception as e:
         return{"status":"erro", "mensagem": str(e)}
     finally: 
-        try: conn.close()
-        except: pass
+        if conn is not None:
+            try:
+                conn.close()
+            except Exception as e:
+                print(f"Erro ao fechar conexão:{e}")
 #made by elly <3!
 #xoxo lol

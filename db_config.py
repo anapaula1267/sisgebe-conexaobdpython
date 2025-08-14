@@ -1,18 +1,20 @@
 # db_config.py
 
 import mysql.connector
-from import Error
+from mysql.connector import Error
 
-def conectar() 
+def conectar():
     try:
         conexao = mysql.connector.connect(
-            host= 'localhost',
-            user='root'             #Troque se necessário
-            passoword='eec123456@#$,'       # troque se necessário
-            database='sfb' # Nome do seu banco
+            host='127.0.0.1',
+            port=3306,
+            user='root',    # Troque se necessário
+            password='',        # Troque se necessário
+            database='SGB'  # Nome do seu banco
         )
         if conexao.is_connected():
-            print("conexão bem-sucedida com o banco de dados!")
+            print("Conexão bem-sucedida com o banco de dados!")
             return conexao
     except Error as e:
-        print(f)
+        print(f"Erro ao conectar ao banco de dados: {e}")
+        return None
